@@ -6,6 +6,7 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 /**
  * Env
@@ -30,7 +31,7 @@ module.exports = function makeWebpackConfig () {
    * Karma will set this when it's a test build
    */
   config.entry = isTest ? {} : {
-    app: './src/app/app.js'
+    app: './src/app.ts'
   };
 
   /**
@@ -78,7 +79,10 @@ module.exports = function makeWebpackConfig () {
 
   // Initialize module
   config.module = {
-    preLoaders: [],
+    preLoaders: [{
+      test: /\.ts$/,
+      loader: 'tslint'
+    }],
     loaders: [{
       // JS LOADER
       // Reference: https://github.com/babel/babel-loader
@@ -116,6 +120,18 @@ module.exports = function makeWebpackConfig () {
       // Allow loading html through js
       test: /\.html$/,
       loader: 'raw'
+    }, {
+      test: /\.ts$/,
+      loader: 'ts'
+    }, {
+      test: /\.scss$/,
+      loader: 'style!css!postcss!sass'
+    }, {
+      test: /bootstrap-sass\/assets\/javascripts\//,
+      loader: 'imports?jQuery=jquery'
+    }, {
+      test: /\.(woff2?|svg)$/,
+      loader: 'url?limit=10000'
     }]
   };
 
@@ -145,6 +161,10 @@ module.exports = function makeWebpackConfig () {
     })
   ];
 
+  config.node = {
+    fs: "empty"
+  };
+
   /**
    * Plugins
    * Reference: http://webpack.github.io/docs/configuration.html#plugins
@@ -158,8 +178,8 @@ module.exports = function makeWebpackConfig () {
     // Render index.html
     config.plugins.push(
       new HtmlWebpackPlugin({
-        template: './src/public/index.html',
-        inject: 'body'
+        template: './src/index.html',
+        inject: false
       }),
 
       // Reference: https://github.com/webpack/extract-text-webpack-plugin
@@ -187,9 +207,21 @@ module.exports = function makeWebpackConfig () {
       // Copy assets from the public folder
       // Reference: https://github.com/kevlened/copy-webpack-plugin
       new CopyWebpackPlugin([{
-        from: __dirname + '/src/public'
-      }])
+        from: __dirname + '/src/assets'
+      }]),
+
+      new webpack.ProvidePlugin({
+        jQuery: "jquery"
+      }),
+
+      new ngAnnotatePlugin({
+        add: true
+      })
     )
+  }
+
+  config.postcss = function() {
+    return [autoprefixer];
   }
 
   /**
@@ -198,7 +230,7 @@ module.exports = function makeWebpackConfig () {
    * Reference: http://webpack.github.io/docs/webpack-dev-server.html
    */
   config.devServer = {
-    contentBase: './src/public',
+    contentBase: './src',
     stats: 'minimal'
   };
 

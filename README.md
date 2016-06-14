@@ -1,89 +1,214 @@
-# angular-webpack
+# angular-next-starter-kit
+Seed project for developing angular 1.x applications in preparation for migrating on to Angular 2.0
 
-[![Dependency Status](https://david-dm.org/preboot/angular-webpack/status.svg)](https://david-dm.org/preboot/angular-webpack#info=dependencies) [![devDependency Status](https://david-dm.org/preboot/angular-webpack/dev-status.svg)](https://david-dm.org/preboot/angular-webpack#info=devDependencies)
+Angular 2.0 brings in quite a few new concepts and design patterns. However, Angular 2.0 is a few months away from being production ready. For those starting off with an Angular 1.x application but want to use the concepts of Angular 2.0 and some of the technologies used in Angular 2.0 today, then this starter kit may serve the purpose.
 
-A complete, yet simple, starter for Angular using Webpack.
+The goals of this project is simple:
+* Focus on the application logic by:
+  * Create a `service` to get some data (see **Creating a Service** below)
+  * Create a `component` to use the data (see **Creating a Component** below)
+  * Compose larger components using smaller components
 
-This workflow serves as a starting point for building Angular 1.x applications using Webpack. Should be noted that apart from the pre-installed angular package, this workflow is pretty much generic.
+The developer **DOES NOT** have to worry about the following:
+* Configuring a `build system`
+* Configuring `unit tests`, `end-to-end tests`, `code coverage`
+* Provide `static analysis` and configure `typescript`
+* Automatically generate `documentation`
 
-* Heavily commented webpack configuration with reasonable defaults.
-* ES6, and ES7 support with babel.
-* Source maps included in all builds.
-* Development server with live reload.
-* Production builds with cache busting.
-* Testing environment using karma to run tests and jasmine as the framework.
-* Code coverage when tests are run.
-* No gulp and no grunt, just npm scripts.
+# Features
 
->Warning: Make sure you're using the latest version of Node.js and NPM
+* Complete scaffolding with Angular 1.5.x
+* Typescript integration
+* Webpack bundling system with multiple loaders (sass, html, typescript)
+* Gulp integration (currently only one task to provide auto documentation)
+* Karma integration with Mocha, Chai, multiple browser launchers (Chrome, PhantomJS) and code coverage
+* Interfaces and APIs to create testable and reusable components
+* Various kinds of service interface
+  * Http Service
+  * Socket Service using Socket IO
+  * SOAP Service using soap client
+  * Buffer Service using ProtobufJS
 
-### Quick start
+# Framework
 
-> Clone/Download the repo then edit `app.js` inside [`/src/app/app.js`](/src/app/app.js)
+* Angular 1.4.x
+* Bootstrap (sass) 3.3.6
+* Socket IO Client 1.3.7
+* Typescript v1.7.5
 
-```bash
-# clone our repo
-$ git clone https://github.com/preboot/angular-webpack.git my-app
+# Build
 
-# change directory to your app
-$ cd my-app
+* Webpack
+* Gulp
 
-# install the dependencies with npm
-$ npm install
+# Test
 
-# start the server
-$ npm start
-```
-
-go to [http://localhost:8080](http://localhost:8080) in your browser.
-
-# Table of Contents
-
-* [Getting Started](#getting-started)
-    * [Dependencies](#dependencies)
-    * [Installing](#installing)
-    * [Running the app](#running-the-app)
-    * [Developing](#developing)
-    * [Testing](#testing)
-* [License](#license)
+* Karma
+* Mocha
+* Chai
+* Protractor
 
 # Getting Started
 
-## Dependencies
+To get started using the seed project, complete the following steps:
 
-What you need to run this app:
-* `node` and `npm` (Use [NVM](https://github.com/creationix/nvm))
-* Ensure you're running Node (`v4.1.x`+) and NPM (`2.14.x`+)
+## Clone the current repository
 
-## Installing
-
-* `fork` this repo
-* `clone` your fork
-* `npm install` to install all dependencies
-
-## Running the app
-
-After you have installed all dependencies you can now run the app with:
-```bash
-npm start
+```
+git clone https://github.com/alamgird/angular-next-starter-kit.git
 ```
 
-It will start a local server using `webpack-dev-server` which will watch, build (in-memory), and reload for you. The port will be displayed to you as `http://localhost:8080`.
+## Install all dependencies
 
-## Developing
+There are two kinds of dependencies in this project:
 
-### Build files
+1. `NPM` dependencies which are used for development as well as application code
+2. `Typescript` dependencies which are the definitely typed files for some of the `NPM` modules
 
-* single run: `npm run build`
-* build files and watch: `npm run watch`
+The following command will continue to install all dependencies:
 
-## Testing
+```
+npm run setup
+```
 
-#### 1. Unit Tests
+## Run the application
 
-* single run: `npm test`
-* live mode (TDD style): `npm run test-watch`
+To run the application with a development server with hot module reload, run the following command:
 
-# License
+```
+npm run serve
+```
 
-[MIT](/LICENSE)
+## Run the tests
+
+To run the unit tests for the application, run the following command:
+
+```
+npm test
+```
+
+Integration tests are on their way.
+
+## Package the application
+
+To produce a bundled application, run the following command:
+
+```
+npm run build
+```
+
+# Directory Structure
+
+```
+|-- app                         | Root directory for the application
+|
+|---- common                    | All modules common to the application
+|------ bindingTypes.ts         | Module containing Angular binding types
+|------ component.ts            | Interface for a BaseComponent
+|------ service.ts              | Interfaces for HttpService, SocketService, SoapService and BufferService
+|
+|---- components                | Root directory for all the components. Any component should go in here
+|------ dropdown                | Sample implementation of a component
+|-------- dropdown.html         | Template file for the component using Angular's template syntax
+|-------- dropdown.scss         | Scoped styles for the component. This can now just be `required` in
+|-------- dropdown.spec.ts      | Unit test spec file for the component. This should be local to the component
+|-------- dropdown.component.ts | Implementation of the component itself
+|-------- dropdown.controller.ts| Implementation of the controller required by component
+|
+|---- core                      | Utility modules that bootstrap the application
+|------ components.ts           | Holds references to all the components
+|------ modules.ts              | Registers all the angular modules
+|------ services.ts             | Holds references to all the services
+|
+|---- services
+|
+|---- utilities                 | Any utilities used across the application
+|
+|---- app.ts                    | Loads in all the other utility modules and bootstrap's Angular
+|---- index.html                | Main html file for the application
+|---- index.scss                | Main css file for the application
+|
+|-- build                       | Contains the bundled application
+|-- docs                        | Contains all auto generated documentation
+|-- fonts                       | Contains application wide fonts
+|-- images                      | Contains application wide images
+|-- gulpfile                    | Gulp task file. Currently only one task to generate documentation is provided
+|-- karma.conf.js               | Configuration file for the karma test runner
+|-- package.json                | Contains NPM dependencies and application commands
+|-- spec.js                     | Main entrypoint for testing, resolves angular module weirdness
+|-- tsconfig.json               | Typescript compiler configuration
+|-- tslint.json                 | Configuration used by the tslint-loader
+|-- webpack.config.js           | Webpack's global configuration file
+```
+
+# Creating a Service
+
+Suppose we want to create a service that gets **Stock Quote** from [Dev Markit API](http://dev.markitondemand.com/MODApis/). The service will take a **symbol** and return a **quote**.
+
+Create a file under `app/services/stock-service`. All services should go under `app/services`.
+
+### First define a `Quote` object
+
+```
+export interface Quote {
+ name: string,
+ symbol: string,
+ lastPrice: number,
+ high: number,
+ low: number,
+ open: number
+}
+```
+
+Since `typescript` is used, the fields in the Quote object can be strongly typed. The interface should be exported since it may be used in other parts of the application. These interfaces can also be moved to a common file.
+
+# Creating a Component
+
+All components should go under `app/components/[component-name]`.
+
+A component should be composed of 4 files
+ * [component-name].html     - Template for the component
+ * [component-name].scss     - Scoped styles for the component
+ * [component-name].spec.ts  - Unit test for the component
+ * [component-name].ts       - Implementation of the component logic
+
+Suppose we want to create a drop down component. Intuitively, the component should be used like this:
+
+```
+<dropdown
+  name="My Dropdown"
+  items="[{ href: '#', label: 'Item 1' },{ href: '#', label: 'Item 2' }]">
+</dropdown>
+```
+
+##### Create a template (dropdown.html):
+
+```
+<div component="DropDown" class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"     
+            aria-expanded="true">
+        {{ ctrl.name }}
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li ng-repeat="item in ctrl.items">
+            <a href="{{ item.href }}">{{ item.label }}</a>
+        </li>
+    </ul>
+</div>
+```
+
+##### Create a scoped stylesheet (dropdown.scss):
+```
+[component="DropDown"] {
+  &.dropdown {
+    a {
+      color: pink !important;
+    }
+  }
+}
+```
+
+##### Create the component implementation (dropdown.ts) by extending the BaseComponent:
+
+**See downdown.ts reference implementation**
