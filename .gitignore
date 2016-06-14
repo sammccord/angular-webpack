@@ -1,6 +1,4 @@
 node_modules
 dist
 coverage
-src/**/*.js
-src/**/*.js.map
 typings

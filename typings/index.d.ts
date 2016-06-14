@@ -1,3 +1,4 @@
+/// <reference path="globals/angular-mocks/index.d.ts" />
 /// <reference path="globals/angular/index.d.ts" />
 /// <reference path="globals/assertion-error/index.d.ts" />
 /// <reference path="globals/bluebird/index.d.ts" />

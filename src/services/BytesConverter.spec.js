@@ -1,4 +1,4 @@
-import { BytesConverter } from './BytesConverter';
+import { BytesConverter } from './BytesConverter.ts';
 
 describe('BytesConverter', () => {
 

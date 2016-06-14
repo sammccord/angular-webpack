@@ -1,6 +1,6 @@
 import './dropdown.scss';
 
-import {BaseComponent} from "../../common/component.ts";
+import { BaseComponent } from "../../common/component.ts";
 import DropDownController from './dropdown.controller.ts';
 
 class DropDown extends BaseComponent {

@@ -1,4 +1,4 @@
-import DropDownController from './dropdown.controller';
+import DropDownController from './dropdown.controller.ts';
 
 describe('Dropdown Component', () => {
 

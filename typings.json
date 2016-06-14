@@ -3,6 +3,7 @@
   "version": false,
   "globalDevDependencies": {
     "angular": "registry:dt/angular#1.5.0+20160328125810",
+    "angular-mocks": "registry:dt/angular-mocks#1.5.0+20160608104721",
     "assertion-error": "github:DefinitelyTyped/DefinitelyTyped/assertion-error/assertion-error.d.ts#dc9dabe74a5be62613b17a3605309783a12ff28a",
     "bluebird": "github:DefinitelyTyped/DefinitelyTyped/bluebird/bluebird.d.ts#dc9dabe74a5be62613b17a3605309783a12ff28a",
     "bootstrap": "github:DefinitelyTyped/DefinitelyTyped/bootstrap/bootstrap.d.ts#dc9dabe74a5be62613b17a3605309783a12ff28a",

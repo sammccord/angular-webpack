@@ -1,4 +1,4 @@
-import ExampleController from './example.controller';
+import ExampleController from './example.controller.ts';
 
 describe('app', () => {
 
